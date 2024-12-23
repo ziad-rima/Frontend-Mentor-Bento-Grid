@@ -1,97 +1,320 @@
-# Frontend Mentor - Bento grid
+# Frontend Mentor - Bento grid solution
 
-![Design preview for the Bento grid coding challenge](./preview.jpg)
+This is a solution to the [Bento grid challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/bento-grid-RMydElrlOj). Frontend Mentor challenges help you improve your coding skills by building realistic projects. 
 
-## Welcome! 👋
+## Table of contents
 
-Thanks for checking out this front-end coding challenge.
+- [Overview](#overview)
+  - [The challenge](#the-challenge)
+  - [Screenshot](#screenshot)
+  - [Links](#links)
+- [My process](#my-process)
+  - [Built with](#built-with)
+  - [What I learned](#what-i-learned)
+  - [Continued development](#continued-development)
+  - [Useful resources](#useful-resources)
+- [Author](#author)
 
-[Frontend Mentor](https://www.frontendmentor.io) challenges help you improve your coding skills by building realistic projects.
 
-**To do this challenge, you need a good understanding of HTML and CSS.**
+## Overview
 
-## The challenge
+### The challenge
 
-Your challenge is to build out this bento grid and get it looking as close to the design as possible.
-
-You can use any tools you like to help you complete the challenge. So if you've got something you'd like to practice, feel free to give it a go.
-
-Your users should be able to: 
+Users should be able to:
 
 - View the optimal layout for the interface depending on their device's screen size
 
-Want some support on the challenge? [Join our community](https://www.frontendmentor.io/community) and ask questions in the **#help** channel.
+### Screenshot
 
-### Expected behaviour
+![](./assets/Screenshot%20of%20website.png)
 
-The two components in the left column on desktop are placed at the bottom on mobile. This is a good opportunity to practice your CSS Grid placement skills.
+### Links
 
-## Where to find everything
+- Solution URL: [Add solution URL here](https://your-solution-url.com)
+- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
 
-Your task is to build out the project to the designs inside the `/design` folder. You will find both a mobile and a desktop version of the design. 
+## My process
+  - I followed the mobile-first approach for this project: 
+    Started coding considering a width of 375px and then modified the layout as the screen grew wider. When things started to get out of hand, I had to start from scratch following a different approach.
 
-The designs are in JPG static format. Using JPGs will mean that you'll need to use your best judgment for styles such as `font-size`, `padding` and `margin`. 
+### Built with
 
-If you would like the Figma design file to gain experience using professional tools and build more accurate projects faster, you can [subscribe as a PRO member](https://www.frontendmentor.io/pro).
+- Semantic HTML5 markup
+- CSS custom properties
+- Flexbox
+- CSS Grid
+- Mobile-first workflow
 
-All the required assets for this project are in the `/assets` folder. The images are already exported for the correct screen size and optimized.
+### What I learned
 
-We also include variable and static font files for the required fonts for this project. You can choose to either link to Google Fonts or use the local font files to host the fonts yourself. Note that we've removed the static font files for the font weights that aren't needed for this project.
+MOBILE-FIRST APPROACH:
+Screen Width: 375px:
+1- In order to include a variable font, I defined it in my styles.css file:
+  ```css
+  @font-face {
+    font-family: 'DMSansItalic';
+    src: url('assets/fonts/DMSans-VariableFont_opsz,wght.ttf') format('truetype');
+    font-weight: 400 500;
+    font-style: italic;
+  }
+  body {
+    font-family: 'DMSansItalic', sans-serif;
+    font-weight: 453;
+  }
+  ```
+  ==> I learned a few differences between variable fonts and regular fonts:
+        - A variable font is a single file that includes all variations of a font (e.g., weights, widths, slants). 
+        - When using regular fonts (found in static folder), you're required to have separate files for each style or weight (e.g., regular.ttf, bold.ttf). 
+        - A variable font supports fine-tuning of font styles, like adjusting weight from 100 to 900 dynamically.
+        - A regular font is limited to predefined styles (e.g., bold or italic).
+        - A variable font reduces the number of HTTP requests because only one font file is used.
+        - Multiple font files increase HTTP requests and load time.
 
-There is also a `style-guide.md` file containing the information you'll need, such as color palette and fonts.
+2- I faced some difficulties when trying to properly center some text and make it span two lines:
+``` html
+    <div class="platforms">
+      <img src="assets/images/illustration-multiple-platforms.webp" 
+          alt="an illustration of two accounts.">
+      <div class="manage-accounts">
+        <p>Manage multiple accounts and platforms.</p>
+      </div>
+    </div>
+```
+    - My approach consisted of wrapping the text in a div container on which I applied the following styles:
+```css
+    .platforms .manage-accounts {
+    display: flex;
+    justify-content: center;
+    align-items: center;  
+    width: 90%;
+    }
+    .platforms .manage-accounts p {
+    word-wrap: break-word;
+    font-size: large;
+    color: var(--black);
+    font-weight: 600;
+    }
+```
+    - I know there's probably multiple other approaches that are far better than mine.
 
-## Building your project
+3- I tried to position the image of the third container (schedule) slightly below its container's bottom edge: 
+    - I applied the following styling on "schedule":
+```css
+    .schedule {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 15px;
+      margin: 15px;
+      padding: 15px;
+      background-color: var(--yellow-500);
+      border-radius: 5%;
+      position: relative;
+      overflow: hidden;
+      height: 240px;
+    }
+    .schedule img {
+    max-width: 70%;
+    position: absolute;
+    bottom: -12%;
+    }
+```
+  - I applied `position: relative;` to the container to make it the reference for absolutely positioned child elements.
+  - `overflow: hidden;` to hide any part of the image that's outside the container.
+  - `position: absolute;` to position the image relative to its container (.schedule).
 
-Feel free to use any workflow that you feel comfortable with. Below is a suggested process, but do not feel like you need to follow these steps:
+**UPDATED SCHEDULE STYLES**
 
-1. Initialize your project as a public repository on [GitHub](https://github.com/). Creating a repo will make it easier to share your code with the community if you need help. If you're not sure how to do this, [have a read-through of this Try Git resource](https://try.github.io/).
-2. Configure your repository to publish your code to a web address. This will also be useful if you need some help during a challenge as you can share the URL for your project with your repo URL. There are a number of ways to do this, and we provide some recommendations below.
-3. Look through the designs to start planning out how you'll tackle the project. This step is crucial to help you think ahead for CSS classes to create reusable styles.
-4. Before adding any styles, structure your content with HTML. Writing your HTML first can help focus your attention on creating well-structured content.
-5. Write out the base styles for your project, including general content styles, such as `font-family` and `font-size`.
-6. Start adding styles to the top of the page and work down. Only move on to the next section once you're happy you've completed the area you're working on.
+- I modifiedd the styles of the schedule container to make it responsive, because the styles prior to these were not as responsive as I wanted. I ended up using a grid layout instead of flexbox.
 
-## Deploying your project
+```css
+  .schedule {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    margin: 15px;
+    padding: 20px;
+    background-color: var(--yellow-500);
+    border-radius: 5%;
+    height: 240px;
+    overflow: hidden;
+  }
+  .schedule h2 {
+    width: 80%;
+    font-size: x-large;
+    color: var(--black);
+    font-weight: 600;
+  }
 
-As mentioned above, there are many ways to host your project for free. Our recommend hosts are:
+  .schedule img {
+    width: 70%;
+    justify-self: start;
+    align-self: end;
+    margin-bottom: -12%;
+    max-width: 300px;
+  }
+```
+- I added a grid layout to the container, with the image in the second row and the text in the first row.
+- I used `justify-self: start;` and `align-self: end;` to position the image in the bottom left corner of the container.
 
-- [GitHub Pages](https://pages.github.com/)
-- [Vercel](https://vercel.com/)
-- [Netlify](https://www.netlify.com/)
+Screen Width: 774px (min-width):
+  - I applied the grid layout to the container: 
+  ```css
+    .container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      overflow-x: hidden;
+    }
+  ```
+  - I struggled to properly position the child elements of the container in the grid. I looked up some approaches and found out that I could use the `grid-template-areas` property to position the child elements in the grid.
+  ```css
+    .container {
+      display: grid;
+      grid-auto-columns: 1fr;
+      grid-auto-rows: 75px;
+      margin: 1rem;
+      gap: 2rem;
+      grid-template-areas: 
+      'box1 box2 box2 box3'
+      'box1 box2 box2 box3'
+      'box1 box2 box2 box3'
+      'box1 box2 box2 box3'
+      'box1 box5 box6 box3'
+      'box4 box5 box6 box3'
+      'box4 box5 box6 box3'
+      'box4 box7 box8 box8'
+      'box4 box7 box8 box8'
+      'box4 box7 box8 box8';
+    }
+  ```
+  - Once I added the grid-template-areas property, the initial mobile layout was unordered.
 
-You can host your site using one of these solutions or any of our other trusted providers. [Read more about our recommended and trusted hosts](https://medium.com/frontend-mentor/frontend-mentor-trusted-hosting-providers-bf000dfebe).
+  **SECOND TRY**
 
-## Create a custom `README.md`
+  - Things started to get messy, elements were overlapping, an element disappeared altogether, so I decided to start from scratch, which is a painful process.
 
-We strongly recommend overwriting this `README.md` with a custom one. We've provided a template inside the [`README-template.md`](./README-template.md) file in this starter code.
+  - I decided to start differently with the help of online resources, I started with larger layouts and then moved to the mobile layout.
 
-The template provides a guide for what to add. A custom `README` will help you explain your project and reflect on your learnings. Please feel free to edit our template as much as you like.
+  - I simplified the index.html file: 
+  ```html
+    <div class="container">
+      <div class="item">
+        <div class="large-text">Create and schedule content <em>quicker.</em></div>
+        <img src="assets/images/illustration-create-post.webp" alt="a create post image.">
+      </div>
 
-Once you've added your information to the template, delete this file and rename the `README-template.md` file to `README.md`. That will make it show up as your repository's README file.
+      <div class="item">
+        <p class="x-large">Social Media <span class="emph">10x</span> <em>Faster</em> with AI</p>
+        <img src="assets/images/illustration-five-stars.webp" alt="a five star image.">
+        <p class="small-text">Over 4,000 5-star reviews</p>
+      </div>
+      ...
+    </div>
+  ```
 
-## Submitting your solution
+  - I included a CSS rule at the beginning of the stylesheet to manage images effectively: 
+  ```css
+    img {
+    max-width: 100%;
+    display: block;
+    }
+  ``` 
+  - This'll make sure that the image is responsive and doesn't overflow the container as it did before.
 
-Submit your solution on the platform for the rest of the community to see. Follow our ["Complete guide to submitting solutions"](https://medium.com/frontend-mentor/a-complete-guide-to-submitting-solutions-on-frontend-mentor-ac6384162248) for tips on how to do this.
+  - In my first approach, I overlooked the fact that I could have used the same class name for multiple elements to avoid repetition and apply the same styling to common elements. This is especially useful when dealing with text elements that need to be styled consistently.
+  ```css
+    .x-large {
+    font-size: 4rem;
+    font-weight: 500;
+    }
 
-Remember, if you're looking for feedback on your solution, be sure to ask questions when submitting it. The more specific and detailed you are with your questions, the higher the chance you'll get valuable feedback from the community.
+    .large-text {
+      font-size: 2.75rem;
+      font-weight: 500;
+    }
 
-## Sharing your solution
+    .medium-text {
+      font-size: 2.35rem;
+      font-weight: 500;
+    }
 
-There are multiple places you can share your solution:
+    .small-text {
+      font-size: 1.5rem;
+      font-weight: 400;
+    }
+  ```
+  - I kept the same styling for the container except this time I specified the max-width: 
+  ```css
+    .container {
+      max-width: 1400px;
+      margin: 1rem;
+      display: grid;
+      grid-auto-columns: 1fr;
+      grid-auto-rows: 75px;
+      gap: 2rem;
+      grid-template-areas: 
+      'box1 box2 box2 box3'
+      'box1 box2 box2 box3'
+      'box1 box2 box2 box3'
+      'box1 box2 box2 box3'
+      'box1 box5 box6 box3'
+      'box4 box5 box6 box3'
+      'box4 box5 box6 box3'
+      'box4 box7 box8 box8'
+      'box4 box7 box8 box8'
+      'box4 box7 box8 box8';
+    }
+  ```
+  - I applied the following styling to the third item and its image: 
+  ```css
+    .container .item:nth-child(3) {
+      grid-area: box3;
+      padding: 2.75rem 2rem 2.5rem 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
 
-1. Share your solution page in the **#finished-projects** channel of our [community](https://www.frontendmentor.io/community). 
-2. Tweet [@frontendmentor](https://twitter.com/frontendmentor) and mention **@frontendmentor**, including the repo and live URLs in the tweet. We'd love to take a look at what you've built and help share it around.
-3. Share your solution on other social channels like LinkedIn.
-4. Blog about your experience building your project. Writing about your workflow, technical choices, and talking through your code is a brilliant way to reinforce what you've learned. Great platforms to write on are [dev.to](https://dev.to/), [Hashnode](https://hashnode.com/), and [CodeNewbie](https://community.codenewbie.org/).
+    .container .item:nth-child(3) img {
+      position: absolute;
+      height: 410px;
+      object-fit: cover;
+      object-position: left;
+      top: 150px;
+    }
+  ```
+  - this was so it follows the desktop layout.
 
-We provide templates to help you share your solution once you've submitted it on the platform. Please do edit them and include specific questions when you're looking for feedback. 
+  - I applied the following styling to the container, with max-width being 1024px: 
+  ```css
+    @media (max-width: 1024px) {
+      .container {
+        grid-auto-rows: initial;
+        grid-template-areas: 
+        'box1 box1 box2 box2'
+        'box1 box1 box2 box2'
+        'box3 box3 box4 box4'
+        'box3 box3 box4 box4'
+        'box5 box5 box6 box6'
+        'box5 box5 box6 box6'
+        'box7 box7 box8 box8'
+        'box7 box7 box8 box8';
+      }
+  ```
+  - I used `grid-auto-rows: initial;` because: I previously set grid-auto-rows to a specific value and now want to reset it for smaller screen sizes. This allows the grid to adjust its row heights dynamically based on the content within each grid item. And finished the project accordingly.
 
-The more specific you are with your questions the more likely it is that another member of the community will give you feedback.
+### Continued development
 
-## Got feedback for us?
+This project was immensely useful, I knew about grid layout beforehand but when it came to practice, I had to redefine my definition for learning, it's not only knowledge but also practice and continued development that contribute to your excellence, I still lack proper understanding of how to implement some of the techniques I learned building this project, for e.g., `grid-template-areas` and the `initial` value given to CSS properties, but I'm willing to develop myself further by building projects from the Frontend Mentor.
 
-We love receiving feedback! We're always looking to improve our challenges and our platform. So if you have anything you'd like to mention, please email hi[at]frontendmentor[dot]io.
+### Useful resources
 
-This challenge is completely free. Please share it with anyone who will find it useful for practice.
+- [edsHTML](https://www.youtube.com/watch?v=-muwduB2G1A) - Looking back at my initial approach and this guy's approach made me realize my oversight of simplicity. I learned a lot from this YouTube video and am planning to follow a similar approach moving forward.
 
-**Have fun building!** 🚀
+## Author
+
+- Frontend Mentor - [@ziad-rima](https://www.frontendmentor.io/profile/ziad-rima)
+- LinkedIn - [Ziad Rima](https://www.linkedin.com/in/ziad-rima-97b6b72b2/)
+
+
